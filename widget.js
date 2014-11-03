@@ -8,7 +8,7 @@ WAF.define('TabsTab', ['waf-core/widget', 'Button'], function(widget, Button) {
                 if(this.closeButton()) {
                     var button = this.getPart('closeButton');
                     if(!button) {
-                        button = new Button({ value: 'X' });
+                        button = new Button({ title: 'X' });
                         this.setPart('closeButton', button);
                     }
                     //this.addClass('waf-' + this.kind.toLowerCase() + '-closable');
@@ -20,18 +20,23 @@ WAF.define('TabsTab', ['waf-core/widget', 'Button'], function(widget, Button) {
                 }
             };
             this.closeButton.onChange(changeCloseButton);
-
-            this.node.innerHTML = this.value();
             changeCloseButton.call(this);
-        },
-        value: widget.property({
-            onChange: function() {
+
+            var changeValue = function() {
                 var button = this.getPart('closeButton');
                 this.node.innerHTML = this.value();
                 this.setPart('closeButton', button);
-            },
+            };
+            this.value.onChange(changeValue);
+            changeValue.call(this);
+        },
+        value: widget.property({
             defaultValueCallback: function() {
-                return this.node.innerHTML;
+                var button = this.getPart('button').node;
+                this.node.removeChild(button);
+                var value = this.node.innerHTML;
+                this.node.appendChild(button);
+                return value;
             }
         }),
         closeButton: widget.property({
