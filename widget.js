@@ -44,9 +44,9 @@ WAF.define('TabsTab', ['waf-core/widget', 'Button'], function(widget, Button) {
         })
     });
     TabsTab.inherit('waf-behavior/layout/composed');
-    TabsTab.removeClass('waf-tabview2tab');
+    TabsTab.removeClass('waf-tabstab');
 
-    TabsTab.mapDomEvents({ 'mousedown': 'action' });
+    TabsTab.mapDomEvents({ 'click': 'action' });
 
     TabsTab.setPart('closeButton');
     TabsTab.addProxiedEvent('action', 'closeButton', 'close');
