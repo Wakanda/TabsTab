@@ -32,10 +32,14 @@ WAF.define('TabsTab', ['waf-core/widget', 'Button'], function(widget, Button) {
         },
         value: widget.property({
             defaultValueCallback: function() {
-                var button = this.getPart('button').node;
-                this.node.removeChild(button);
+                var button = this.getPart('closeButton');
+                if(button) {
+                    this.node.removeChild(button.node);
+                }
                 var value = this.node.innerHTML;
-                this.node.appendChild(button);
+                if(button) {
+                    this.node.appendChild(button.node);
+                }
                 return value;
             }
         }),
